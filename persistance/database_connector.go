@@ -26,6 +26,7 @@ func InitDatabase() error {
 	// Creates the database tables.
 	database.CreateTable(&domain.MeasurementSeries{})
 	database.CreateTable(&domain.Measurement{})
+	database.CreateTable(&domain.Sensor{})
 	db = database
 	return nil
 }
