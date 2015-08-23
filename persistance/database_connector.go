@@ -12,7 +12,7 @@ const databasePassword = "H8L@r3@{~?&~}w|J33$6!837?l"
 
 var db gorm.DB
 
-// Obtains a database connector, if available.
+// Initializes the database, throws an error if an error is produced
 func InitDatabase() error {
 	database, err := gorm.Open("postgres", "user=Xavi dbname=Xavi sslmode=disable")
 	if err != nil {
@@ -25,15 +25,19 @@ func InitDatabase() error {
 	database.LogMode(true)
 	// Creates the database tables.
 	database.CreateTable(&domain.MeasurementSeries{})
+	database.CreateTable(&domain.Measurement{})
 	database.CreateTable(&domain.Sensor{})
 	database.CreateTable(&domain.SensorType{})
 	db = database
-	initMeasurementsTable()
+	initForeignKeys()
 	return nil
 }
 
-func initMeasurementsTable() {
-	measurementEntity := &domain.Measurement{}
-	db.CreateTable(measurementEntity)
-	db.Model(measurementEntity).AddForeignKey("measurement_series_id", "measurement_series(id)", "CASCADE", "CASCADE")
+func initForeignKeys() {
+	// Initializes the measurements table foreign keys
+	measurementModel := db.Model(&domain.Measurement{})
+	measurementModel.AddForeignKey("measurement_series_id", "measurement_series(id)", "CASCADE", "CASCADE")
+	// Initializes the measurements_series table foreign key
+	measurementSeriesModel := db.Model(&domain.MeasurementSeries{})
+	measurementSeriesModel.AddForeignKey("sensor_id", "sensors(id)", "CASCADE", "CASCADE")
 }
