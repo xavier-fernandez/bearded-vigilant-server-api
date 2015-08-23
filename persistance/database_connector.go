@@ -25,9 +25,15 @@ func InitDatabase() error {
 	database.LogMode(true)
 	// Creates the database tables.
 	database.CreateTable(&domain.MeasurementSeries{})
-	database.CreateTable(&domain.Measurement{})
 	database.CreateTable(&domain.Sensor{})
 	database.CreateTable(&domain.SensorType{})
 	db = database
+	initMeasurementsTable()
 	return nil
+}
+
+func initMeasurementsTable() {
+	measurementEntity := &domain.Measurement{}
+	db.CreateTable(measurementEntity)
+	db.Model(measurementEntity).AddForeignKey("measurement_series_id", "measurement_series(id)", "CASCADE", "CASCADE")
 }
