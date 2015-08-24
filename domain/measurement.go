@@ -7,7 +7,7 @@ type Measurement struct {
 	Value               float64           `sql:"NOT NULL"; json:"value"`
 	BinSize             uint16            `sql:"NOT NULL"; json:"binSize"`
 	StartTimestamp      time.Time         `sql:"NOT NULL"; json:"startTimestamp"`
-	EndTimestamp        *time.Time        `json:"endTimestamp"`
+	EndTimestamp        *time.Time        `sql:"NOT NULL"; json:"endTimestamp"`
 	Latitude            float32           `json:"latitude"`
 	Longitude           float32           `json:"longitude"`
 	MeasurementSeriesID uint64            `gorm:"column:measurement_series_id"`
