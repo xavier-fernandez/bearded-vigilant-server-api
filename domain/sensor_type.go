@@ -6,4 +6,5 @@ type SensorType struct {
 	IsAnalog  bool   `sql:"NOT NULL"; json:"isAnalog"`
 	IsDigital bool   `sql:"NOT NULL"; json:"isDigital"`
 	IsPwm     bool   `sql:"NOT NULL"; json:"isPAM"`
+	IsI2c     bool   `sql:"NOT NULL"; json:"isI2C"`
 }
