@@ -24,10 +24,10 @@ func InitDatabase() error {
 	// Enable database Logging.
 	database.LogMode(true)
 	// Creates the database tables.
-	database.CreateTable(&domain.MeasurementSeries{})
 	database.CreateTable(&domain.Measurement{})
 	database.CreateTable(&domain.Sensor{})
 	database.CreateTable(&domain.SensorType{})
+	database.CreateTable(&domain.SensorOutputType{})
 	db = database
 	initForeignKeys()
 	return nil
@@ -36,9 +36,6 @@ func InitDatabase() error {
 func initForeignKeys() {
 	// Initializes the measurements table foreign keys
 	measurementModel := db.Model(&domain.Measurement{})
-	measurementModel.AddForeignKey("measurement_series_id", "measurement_series(id)", "CASCADE", "CASCADE")
-	// Initializes the measurements_series table foreign key
-	measurementSeriesModel := db.Model(&domain.MeasurementSeries{})
-	measurementSeriesModel.AddForeignKey("sensor_id", "sensors(id)", "CASCADE", "CASCADE")
-	measurementSeriesModel.AddForeignKey("sensor_type_id", "sensor_types(id)", "CASCADE", "CASCADE")
+	measurementModel.AddForeignKey("sensor_id", "sensors(id)", "CASCADE", "CASCADE")
+	measurementModel.AddForeignKey("sensor_output_type_id", "sensor_output_types(id)", "CASCADE", "CASCADE")
 }
