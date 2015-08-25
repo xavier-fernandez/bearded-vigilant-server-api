@@ -5,4 +5,5 @@ type Sensor struct {
 	PinNumber   uint32       `sql:"NOT NULL"; json:"pinNumber"`
 	GrovePiRow  uint8        `sql:"NOT NULL"; json:"grovePiRow"`
 	SensorTypes []SensorType `gorm:"many2many:sensor_type_sensor;"`
+	Measurement []Measurement
 }

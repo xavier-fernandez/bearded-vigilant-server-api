@@ -20,9 +20,9 @@ func InitDatabase() error {
 		return err
 	}
 	db = database
+	db.LogMode(true)
 	initDatabaseTables()
 	db.DB()
-	db.LogMode(true)
 	initForeignKeys()
 	return nil
 }
