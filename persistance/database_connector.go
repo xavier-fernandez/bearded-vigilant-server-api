@@ -38,4 +38,7 @@ func initForeignKeys() {
 	measurementModel := db.Model(&domain.Measurement{})
 	measurementModel.AddForeignKey("sensor_id", "sensors(id)", "CASCADE", "CASCADE")
 	measurementModel.AddForeignKey("sensor_output_type_id", "sensor_output_types(id)", "CASCADE", "CASCADE")
+	// Initializes the sensor_type table foreign key
+	sensorTypeModel := db.Model(&domain.SensorType{})
+	sensorTypeModel.AddForeignKey("sensor_output_type_id", "sensor_output_types(id)", "CASCADE", "CASCADE")
 }
