@@ -19,18 +19,19 @@ func InitDatabase() error {
 		fmt.Errorf("The following error was thrown when initializing the database -> ", err)
 		return err
 	}
-	// Initialize the database connection
-	database.DB()
-	// Enable database Logging.
-	database.LogMode(true)
-	// Creates the database tables.
-	database.CreateTable(&domain.Measurement{})
-	database.CreateTable(&domain.Sensor{})
-	database.CreateTable(&domain.SensorType{})
-	database.CreateTable(&domain.SensorOutputType{})
 	db = database
+	initDatabaseTables()
+	db.DB()
+	db.LogMode(true)
 	initForeignKeys()
 	return nil
+}
+
+func initDatabaseTables() {
+	db.CreateTable(&domain.Measurement{})
+	db.CreateTable(&domain.Sensor{})
+	db.CreateTable(&domain.SensorType{})
+	db.CreateTable(&domain.SensorOutputType{})
 }
 
 func initForeignKeys() {
