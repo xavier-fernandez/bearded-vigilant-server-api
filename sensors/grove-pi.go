@@ -31,7 +31,7 @@ const (
 )
 
 type GrovePi struct {
-	i2cmodule hwio.I2CModule
+	i2cModule hwio.I2CModule
 	i2cDevice hwio.I2CDevice
 }
 
@@ -42,15 +42,15 @@ func InitGrovePi(address int) *GrovePi {
 		fmt.Printf("could not get i2c module: %s\n", err)
 		return nil
 	}
-	grovePi.i2cmodule = m.(hwio.I2CModule)
-	grovePi.i2cmodule.Enable()
+	grovePi.i2cModule = m.(hwio.I2CModule)
+	grovePi.i2cModule.Enable()
 
-	grovePi.i2cDevice = grovePi.i2cmodule.GetDevice(address)
+	grovePi.i2cDevice = grovePi.i2cModule.GetDevice(address)
 	return grovePi
 }
 
 func (grovePi *GrovePi) CloseDevice() {
-	grovePi.i2cmodule.Disable()
+	grovePi.i2cModule.Disable()
 }
 
 func (grovePi *GrovePi) AnalogRead(pin byte) (int, error) {
