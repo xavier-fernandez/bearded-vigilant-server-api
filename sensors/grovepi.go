@@ -35,7 +35,6 @@ const (
 	ANALOG_READ   = 3
 	ANALOG_WRITE  = 4
 	PIN_MODE      = 5
-	DHT_READ      = 40
 )
 
 // This struct provides the basic functions for using the GrovePi
@@ -67,7 +66,7 @@ func (grovePi *GrovePi) CloseDevice() {
 }
 
 // Does an analog read on the selected pin.
-// We can use 'grove-pi.go' constants, we can access the
+// We can use 'grovepi.go' constants, we can access the
 // pins easily calling 'grovepi.D1', for example.
 // It will return the sensor value if it was possible to parse the value.
 // It will return an error if some problem happened when reading the value.
@@ -89,7 +88,7 @@ func (grovePi *GrovePi) analogRead(pin byte) (int, error) {
 }
 
 // Does an digital read on the selected pin.
-// We can use 'grove-pi.go' constants, we can access the
+// We can use 'grovepi.go' constants, we can access the
 // pins easily calling 'grovepi.D1', for example.
 // It will return the sensor value if it was possible to parse the value.
 // It will return an error if some problem happened when reading the value.
@@ -108,7 +107,7 @@ func (grovePi *GrovePi) digitalRead(pin byte) (byte, error) {
 }
 
 // Does a digital write on the selected pin.
-// We can use 'grove-pi.go' constants, we can access the
+// We can use 'grovepi.go' constants, we can access the
 // pins easily calling 'grovepi.D1', for example.
 // It will return an error if some problem happened when writing the value.
 func (grovePi *GrovePi) digitalWrite(pin byte, val byte) error {
