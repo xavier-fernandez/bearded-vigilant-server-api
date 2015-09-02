@@ -4,21 +4,29 @@ import (
 	"fmt"
 	"github.com/mrmorphic/hwio"
 	"time"
-	"unsafe"
 )
 
 const (
-	//Pins
+	//GrovePi Pin - Analog 0
 	A0 = 0
+	//GrovePi Pin - Analog 1
 	A1 = 1
+	//GrovePi Pin - Analog 2
 	A2 = 2
 
+	//GrovePi Pin - Digital 2
 	D2 = 2
+	//GrovePi Pin - Digital 3
 	D3 = 3
+	//GrovePi Pin - Digital 4
 	D4 = 4
+	//GrovePi Pin - Digital 5
 	D5 = 5
+	//GrovePi Pin - Digital 6
 	D6 = 6
+	//GrovePi Pin - Digital 7
 	D7 = 7
+	//GrovePi Pin - Digital 8
 	D8 = 8
 
 	//Cmd format
@@ -30,11 +38,15 @@ const (
 	DHT_READ      = 40
 )
 
+// This struct provides the basic functions for using the GrovePi
 type GrovePi struct {
 	i2cModule hwio.I2CModule
 	i2cDevice hwio.I2CDevice
 }
 
+// Establish the connection with a GrovePi.
+// This method should be called for initializing the GrovePi struct.
+// It returns a reference to the GrovePi struct.
 func InitGrovePi(address int) *GrovePi {
 	grovePi := new(GrovePi)
 	m, err := hwio.GetModule("i2c")
@@ -49,11 +61,17 @@ func InitGrovePi(address int) *GrovePi {
 	return grovePi
 }
 
+// Close the GrovePi connection
 func (grovePi *GrovePi) CloseDevice() {
 	grovePi.i2cModule.Disable()
 }
 
-func (grovePi *GrovePi) AnalogRead(pin byte) (int, error) {
+// Does an analog read on the selected pin.
+// We can use 'grove-pi.go' constants, we can access the
+// pins easily calling 'grovepi.D1', for example.
+// It will return the sensor value if it was possible to parse the value.
+// It will return an error if some problem happened when reading the value.
+func (grovePi *GrovePi) analogRead(pin byte) (int, error) {
 	b := []byte{ANALOG_READ, pin, 0, 0}
 	err := grovePi.i2cDevice.Write(1, b)
 	if err != nil {
@@ -70,7 +88,12 @@ func (grovePi *GrovePi) AnalogRead(pin byte) (int, error) {
 	return ((v1 * 256) + v2), nil
 }
 
-func (grovePi *GrovePi) DigitalRead(pin byte) (byte, error) {
+// Does an digital read on the selected pin.
+// We can use 'grove-pi.go' constants, we can access the
+// pins easily calling 'grovepi.D1', for example.
+// It will return the sensor value if it was possible to parse the value.
+// It will return an error if some problem happened when reading the value.
+func (grovePi *GrovePi) digitalRead(pin byte) (byte, error) {
 	b := []byte{DIGITAL_READ, pin, 0, 0}
 	err := grovePi.i2cDevice.Write(1, b)
 	if err != nil {
@@ -84,7 +107,11 @@ func (grovePi *GrovePi) DigitalRead(pin byte) (byte, error) {
 	return val, nil
 }
 
-func (grovePi *GrovePi) DigitalWrite(pin byte, val byte) error {
+// Does a digital write on the selected pin.
+// We can use 'grove-pi.go' constants, we can access the
+// pins easily calling 'grovepi.D1', for example.
+// It will return an error if some problem happened when writing the value.
+func (grovePi *GrovePi) digitalWrite(pin byte, val byte) error {
 	b := []byte{DIGITAL_WRITE, pin, val, 0}
 	err := grovePi.i2cDevice.Write(1, b)
 	time.Sleep(100 * time.Millisecond)
@@ -94,7 +121,11 @@ func (grovePi *GrovePi) DigitalWrite(pin byte, val byte) error {
 	return nil
 }
 
-func (grovePi *GrovePi) PinMode(pin byte, mode string) error {
+// Modifies the mode of a GrovePi pin
+// If mode is string is equal to "output" it will set the mode to "output".
+// Every other mode will set the mode to "input"
+// It will return an error if some problem happened when changing the pin mode.
+func (grovePi *GrovePi) pinMode(pin byte, mode string) error {
 	var b []byte
 	if mode == "output" {
 		b = []byte{PIN_MODE, pin, 1, 0}
