@@ -7,22 +7,22 @@ import (
 )
 
 const (
-	A0 = 0  //GrovePi Pin - Analog 0
-	A1 = 1  //GrovePi Pin - Analog 1
-	A2 = 2  //GrovePi Pin - Analog 2
-	D2 = 2  //GrovePi Pin - Digital 2
-	D3 = 3  //GrovePi Pin - Digital 3
-	D4 = 4  //GrovePi Pin - Digital 4
-	D5 = 5  //GrovePi Pin - Digital 5
-	D6 = 6  //GrovePi Pin - Digital 6
-	D7 = 7  //GrovePi Pin - Digital 7
-	D8 = 8  //GrovePi Pin - Digital 8
+	A0 = 0 //GrovePi Pin - Analog 0
+	A1 = 1 //GrovePi Pin - Analog 1
+	A2 = 2 //GrovePi Pin - Analog 2
+	D2 = 2 //GrovePi Pin - Digital 2
+	D3 = 3 //GrovePi Pin - Digital 3
+	D4 = 4 //GrovePi Pin - Digital 4
+	D5 = 5 //GrovePi Pin - Digital 5
+	D6 = 6 //GrovePi Pin - Digital 6
+	D7 = 7 //GrovePi Pin - Digital 7
+	D8 = 8 //GrovePi Pin - Digital 8
 
-	DIGITAL_READ = 1
+	DIGITAL_READ  = 1
 	DIGITAL_WRITE = 2
-	ANALOG_READ = 3
-	ANALOG_WRITE = 4
-	PIN_MODE = 5
+	ANALOG_READ   = 3
+	ANALOG_WRITE  = 4
+	PIN_MODE      = 5
 )
 
 // This struct provides the basic functions for using the GrovePi
