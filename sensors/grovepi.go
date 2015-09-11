@@ -55,6 +55,16 @@ func (grovePi *GrovePi) CloseDevice() {
 	grovePi.i2cModule.Disable()
 }
 
+// Obtains the I2C Grove Pi module
+func (grovePi *GrovePi) I2CModule() hwio.I2CModule {
+	return grovePi.i2cModule
+}
+
+// Obtains the I2C Grove Pi device
+func (grovePi *GrovePi) I2CDevice() hwio.I2CDevice {
+	return grovePi.i2cDevice
+}
+
 // Obtains the GrovePi address.
 func (grovePi *GrovePi) Address() int {
 	return grovePi.address
