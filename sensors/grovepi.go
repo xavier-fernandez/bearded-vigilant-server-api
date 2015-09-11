@@ -29,6 +29,7 @@ const (
 type GrovePi struct {
 	i2cModule hwio.I2CModule
 	i2cDevice hwio.I2CDevice
+	address   int
 }
 
 // Establish the connection with a GrovePi.
@@ -45,12 +46,18 @@ func InitGrovePi(address int) *GrovePi {
 	grovePi.i2cModule.Enable()
 
 	grovePi.i2cDevice = grovePi.i2cModule.GetDevice(address)
+	grovePi.address = address
 	return grovePi
 }
 
 // Close the GrovePi connection
 func (grovePi *GrovePi) CloseDevice() {
 	grovePi.i2cModule.Disable()
+}
+
+// Obtains the GrovePi address.
+func (grovePi *GrovePi) Address() int {
+	return grovePi.address
 }
 
 // Does an analog read on the selected pin.
