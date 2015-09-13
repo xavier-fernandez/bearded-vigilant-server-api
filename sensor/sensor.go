@@ -1,4 +1,4 @@
-package sensors
+package sensor
 
 type Sensor interface {
 	ReadAndStoreSensorData()

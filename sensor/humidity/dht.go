@@ -7,9 +7,7 @@ import (
 	"unsafe"
 )
 
-const (
-	DHT_READ = 40
-)
+const DHT_READ byte = 40
 
 // This struct provides the basic functions for using the GrovePi
 type DHT struct {

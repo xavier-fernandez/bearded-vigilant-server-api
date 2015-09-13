@@ -7,8 +7,10 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const databaseUser = "envirodb"
-const databasePassword = "H8L@r3@{~?&~}w|J33$6!837?l"
+const (
+	databaseUser     = "envirodb"
+	databasePassword = "H8L@r3@{~?&~}w|J33$6!837?l"
+)
 
 var db gorm.DB
 

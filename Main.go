@@ -3,12 +3,14 @@ package main
 import (
 	"github.com/environ-vigilant/persistance"
 	"github.com/environ-vigilant/sensor"
-	"time"
 	"github.com/environ-vigilant/sensor/humidity"
+	"time"
 )
 
-const APP_NAME = "enviro-vigilant"
-const APP_VERSION = "0.0.1"
+const (
+	APP_NAME    = "enviro-vigilant"
+	APP_VERSION = "0.0.1"
+)
 
 func main() {
 	println("Loading", APP_NAME, "version", APP_VERSION)
