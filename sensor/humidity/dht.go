@@ -2,7 +2,7 @@ package humidity
 
 import (
 	"fmt"
-	"github.com/environ-vigilant/sensors"
+	"github.com/environ-vigilant/sensor"
 	"time"
 	"unsafe"
 )
@@ -13,11 +13,11 @@ const (
 
 // This struct provides the basic functions for using the GrovePi
 type DHT struct {
-	grovePi *sensors.GrovePi
+	grovePi *sensor.GrovePi
 	pin     byte
 }
 
-func InitDHT(grovePi *sensors.GrovePi, pinNumber byte) *DHT {
+func InitDHT(grovePi *sensor.GrovePi, pinNumber byte) *DHT {
 	sensor := new(DHT)
 	sensor.grovePi = grovePi
 	sensor.pin = pinNumber
