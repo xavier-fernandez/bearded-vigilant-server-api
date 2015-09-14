@@ -15,8 +15,9 @@ const (
 func main() {
 	println("Loading", APP_NAME, "version", APP_VERSION)
 	persistance.InitDatabase()
+	sensor.InitSensorFactory()
 	grovePi := sensor.InitGrovePi(0x04)
-	dht := humidity.InitDHT(grovePi, sensor.D3)
+	dht := humidity.InitDHT(grovePi, sensor.D3, "DHT22")
 	for true {
 		time.Sleep(600 * time.Millisecond)
 		dht.ReadAndStoreSensorData()
