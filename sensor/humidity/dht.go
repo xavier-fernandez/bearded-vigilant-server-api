@@ -9,29 +9,35 @@ import (
 
 const DHT_READ byte = 40
 
-// This struct provides the basic functions for using the GrovePi
+// This Struct provides the basic functions for using the DHT sensors connected to a GrovePi.
+// Needs to be initialized using the function 'InitDHT(grovePi, byte, string)'
 type DHT struct {
 	grovePi *sensor.GrovePi
 	pin     byte
+	name    string
 }
 
-func InitDHT(grovePi *sensor.GrovePi, pinNumber byte) *DHT {
+// Initializes a DHT sensor. Needs to be called directly, instead of creating the DHT class directly.
+func InitDHT(grovePi *sensor.GrovePi, pinNumber byte, sensorName string) *DHT {
 	sensor := new(DHT)
 	sensor.grovePi = grovePi
 	sensor.pin = pinNumber
+	sensor.name = sensorName
 	return sensor
 }
 
 // Obtains and stores humidity and temperature data
-func (sensor *DHT) ReadAndStoreSensorData() {
+func (sensor *DHT) ReadAndStoreSensorData() error {
 	temperature, humidity, err := sensor.readDHT(sensor.pin)
 	sensorPin := sensor.pin
 	if err != nil {
 		fmt.Errorf("Following error was thrown when obtaining the RHT data from the sensor ", sensorPin, " -> ", err)
+		return err
 	} else {
 		grovePiAddress := sensor.grovePi.Address()
 		println("GrovePi: ", grovePiAddress, "Pin: ", sensorPin, " Temperature: ", temperature, " Humidity: ", humidity)
 		//TODO: Store data into the database
+		return nil
 	}
 }
 
@@ -69,4 +75,9 @@ func (sensor *DHT) readDHTRawData(cmd []byte) ([]byte, error) {
 		return nil, err
 	}
 	return raw, nil
+}
+
+// Returns the sensor name
+func (sensor *DHT) Name() string {
+	return sensor.name
 }
